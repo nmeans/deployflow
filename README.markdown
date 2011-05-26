@@ -11,37 +11,34 @@ Installation
 
 1. git-flow
 
-I'd recommend you use my custom fork of git-flow with deployflow. It adds
-version number auto-incrementation and suppresses the need to add a message
-to each tag you create. You can install it by:
+  I'd recommend you use my custom fork of git-flow with deployflow. It adds
+  version number auto-incrementation and suppresses the need to add a message
+  to each tag you create. You can install it by:
 
-`brew uninstall git-flow` (if you've previously installed git-flow via Homebrew)
-`git clone --recursive git://github.com/nmeans/gitflow.git`
-`cd gitflow`
-`make install` (or `sudo make install` if you don't own `/usr/local/bin`)
+  `brew uninstall git-flow` (if you've previously installed git-flow via Homebrew)
+  `git clone --recursive git://github.com/nmeans/gitflow.git`
+  `cd gitflow`
+  `make install` (or `sudo make install` if you don't own `/usr/local/bin`)
 
-If you'd prefer the original, visit [http://github.com/nvie/gitflow](http://github.com/nvie/gitflow)
-for install information.
+  If you'd prefer the original, visit [http://github.com/nvie/gitflow](http://github.com/nvie/gitflow)
+  for install information.
 
-2. Capistrano Multistage
+2. deployflow 
 
-`gem install capistrano-ext`
-
-3. deployflow
-
-It's as simple as:
-`gem install deployflow`
+  `gem install deployflow`
+  This will also install capistrano and capistrano-ext if you don't already have them.
 
 Repository Setup
 ----------------
 
-1. Add a few branches to your repo
+1. Add a couple of require branches to your repo
 
-If you don't already have them, you'll need to add `develop` and `staging` branches. You should have a `master` branch by default.
+  If you don't already have them, you'll need to add `develop` and `staging` branches. You should have a `master` branch by default.
 
-2. Run git flow init on your repo
+2. Run `git flow init` on your repo
 
-You'll want to use `staging` as your branch for production releases and `develop` for next release development
+  You'll want to use `staging` as your branch for production releases (weird, I know, but trust me)
+  and `develop` for next release development.
 
 3. Add the following to the top of your config/deploy.rb
 
@@ -51,7 +48,9 @@ You'll want to use `staging` as your branch for production releases and `develop
 Usage
 -----
 
-Just use git-flow like normal. Create a release you want to deploy with `git flow release` or `git flow hotfix`.
+Just use git-flow like normal. (What is 'normal'? 
+[Here's a good primer.](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)) 
+Create a release you want to deploy with `git flow release` or `git flow hotfix`.
 
 When you're ready to deploy your release to staging, no need to push first, just run `cap staging deploy` and
 deployflow will automatically push to origin and deploy your most recent tag to staging.
@@ -64,10 +63,10 @@ of your master branch to production.
 Credits
 -------
 
-Heavily inspired by Josh Nichols' [capistrano-gitflow](https://github.com/technicalpickles/capistrano-gitflow)
+Heavily inspired by and some code from Josh Nichols' [capistrano-gitflow](https://github.com/technicalpickles/capistrano-gitflow),
+which was in turn inspired by Alan Pinstein's [git-deployment](https://github.com/apinstein/git-deployment).
 
 Copyright
 ---------
 
-Copyright (c) 2011 Nickolas Means. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Nickolas Means / ActiveProspect, Inc. See LICENSE.txt for further details.
