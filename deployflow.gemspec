@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{deployflow}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nickolas Means"]
@@ -25,9 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "deployflow.gemspec",
-    "lib/capistrano/deployflow.rb",
-    "test/helper.rb",
-    "test/test_deployflow.rb"
+    "lib/capistrano/deployflow.rb"
   ]
   s.homepage = %q{http://github.com/nmeans/deployflow}
   s.licenses = ["MIT"]

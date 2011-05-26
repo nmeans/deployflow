@@ -20,14 +20,15 @@ Installation
     `brew uninstall git-flow` (if you've previously installed git-flow via Homebrew)  
     `git clone --recursive git://github.com/nmeans/gitflow.git`  
     `cd gitflow`  
-    `make install` (or `sudo make install` if you don't own `/usr/local/bin`)  
+    `make install` (or `sudo make install` if you don't own /usr/local/bin)  
 
     If you'd prefer the original, visit [http://github.com/nvie/gitflow](http://github.com/nvie/gitflow)
     for install information.
 
 2.  deployflow 
 
-    `gem install deployflow`  
+    `gem install deployflow`
+
     This will also install capistrano and capistrano-ext if you don't already have them.
 
 
@@ -36,15 +37,15 @@ Repository Setup
 
 1.  Add a couple of require branches to your repo
 
-    If you don't already have them, you'll need to add `develop` and `staging` branches. You should have a `master` branch by default. eg:
+    If you don't already have them, you'll need to add 'develop' and 'staging' branches. You should have a 'master' branch by default. eg:
 
     `git branch develop`  
     `git branch staging`  
 
 2.  Run `git flow init` on your repo
 
-    You'll want to use `staging` as your branch for production releases (contradictory, I know, but trust me)
-    and `develop` for next release development. eg:
+    You'll want to use 'staging' as your branch for production releases (contradictory, I know, but trust me)
+    and 'develop' for next release development. eg:
 
         [~/Projects/deployflow-test]$ git flow init
 
