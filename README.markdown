@@ -1,10 +1,12 @@
 deployflow
 ==========
 
-deployflow lets you use git-flow to release into a 'staging' branch and then promote specific 
-tags into your 'master' branch for deploying to production. It's for those of us who are
-persnickety about keeping master as a canonical repository of what's actually running in 
-production and doing all our mucking about elsewhere.
+deployflow lets you use git-flow (or any git tag-based versioning strategy, really) 
+to release into a 'staging' branch and then promote specific tags into your 'master'
+branch for deploying to production. It's for those of us who are persnickety about
+keeping 'master' as a canonical repository of what's actually running in production 
+and doing all our mucking about elsewhere.
+
 
 Installation
 ------------
@@ -28,22 +30,41 @@ Installation
     `gem install deployflow`  
     This will also install capistrano and capistrano-ext if you don't already have them.
 
+
 Repository Setup
 ----------------
 
 1.  Add a couple of require branches to your repo
 
-    If you don't already have them, you'll need to add `develop` and `staging` branches. You should have a `master` branch by default.
+    If you don't already have them, you'll need to add `develop` and `staging` branches. You should have a `master` branch by default. eg:
+
+    `git branch develop`  
+    `git branch staging`  
 
 2.  Run `git flow init` on your repo
 
-    You'll want to use `staging` as your branch for production releases (weird, I know, but trust me)
-    and `develop` for next release development.
+    You'll want to use `staging` as your branch for production releases (contradictory, I know, but trust me)
+    and `develop` for next release development. eg:
+
+        [~/Projects/deployflow-test]$ git flow init
+
+        Which branch should be used for bringing forth production releases?
+          - develop
+          - master
+          - staging
+        Branch name for production releases: [master] staging
+
+        Which branch should be used for integration of the "next release"?
+          - develop
+          - master
+        Branch name for "next release" development: [develop] develop
+    
 
 3.  Add the following to the top of your config/deploy.rb
 
     `require 'capistrano/ext/multistage'`  
     `require 'capistrano/deployflow'`  
+
 
 Usage
 -----
@@ -57,8 +78,8 @@ deployflow will automatically push to origin and deploy your most recent tag to 
 
 After you've tested in staging, you're ready to promote your tag to master and roll it out to production. All
 you have to do is `cap production deploy`, and deployflow will ask which tag you'd like to promote (suggesting
-your most recent automatically), merge that tag over to your master branch, push to origin, and deploy the head
-of your master branch to production.
+your most recent automatically), merge that tag over to your master branch, push to origin, and deploy that tag 
+to production.
 
 Credits
 -------
