@@ -35,7 +35,7 @@ Installation
 Repository Setup
 ----------------
 
-1.  Add a couple of require branches to your repo
+1.  Add a couple of required branches to your repo
 
     If you don't already have them, you'll need to add 'develop' and 'staging' branches. You should have a 'master' branch by default. eg:
 
