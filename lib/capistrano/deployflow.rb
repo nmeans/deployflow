@@ -30,7 +30,7 @@ module Capistrano
 
           desc "Set the tag to deploy to the selected stage."
           task :set_deploy_codebase do
-            abort "Unsupported stage: #{stage}." unless [:staging, :production].include?(stage)
+            abort "Unsupported stage: #{stage}." unless stages.include?(stage.to_s)
             if stage == :staging
               # Ask which tag to deploy
               tag_to_deploy = ask_which_tag
