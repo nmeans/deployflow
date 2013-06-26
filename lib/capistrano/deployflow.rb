@@ -14,22 +14,24 @@ module Capistrano
           end
 
           def ask_which_tag
-            tag = Capistrano::CLI.ui.ask("What tag would you like to promote to #{stage}? [#{most_recent_tag}]")
-            if tag == ""
-              promote_tag = most_recent_tag
+            if ENV['tag']
+              promote_tag = ENV['tag']
             else
-              # Do we have this tag?
-              abort "Tag '#{tag}' does not exist!" unless `git tag`.split(/\n/).include?(tag)
-              promote_tag = tag
+              tag = Capistrano::CLI.ui.ask("What tag would you like to promote to #{stage}? [#{most_recent_tag}]")
+              promote_tag = tag == "" ? most_recent_tag : tag
             end
+
+            # Do we have this tag?
+            abort "Tag '#{promote_tag}' does not exist!" unless `git tag`.split(/\n/).include?(promote_tag)
+
             puts "Promoting #{promote_tag} to #{stage}."
             return promote_tag
           end
 
           desc "Set the tag to deploy to the selected stage."
           task :set_deploy_codebase do
-            abort "Unsupported stage: #{stage}." unless [:staging, :production].include?(stage)
-            if stage == :staging
+            abort "Unsupported stage: #{stage}." unless stages.include?(stage.to_s)
+            if stage.to_s.match(/^staging/)
               # Ask which tag to deploy
               tag_to_deploy = ask_which_tag
               # Push to origin staging
@@ -37,7 +39,7 @@ module Capistrano
               abort "Git push failed!" if $? != 0
               # Set deploy codebase to our tag
               set :branch, tag_to_deploy
-            elsif stage == :production
+            elsif stage.to_s.match(/^production/)
               tag_to_deploy = ask_which_tag
               # Switch to 'master'
               system "git checkout master"
@@ -53,7 +55,6 @@ module Capistrano
               puts "*** Could not switch back to 'develop' branch! Be sure to manually switch before continuing work." if $? != 0
               set :branch, tag_to_deploy
             end
-
           end
 
           task :verify_up_to_date do
