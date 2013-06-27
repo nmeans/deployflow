@@ -14,14 +14,16 @@ module Capistrano
           end
 
           def ask_which_tag
-            tag = Capistrano::CLI.ui.ask("What tag would you like to promote to #{stage}? [#{most_recent_tag}]")
-            if tag == ""
-              promote_tag = most_recent_tag
+            if ENV['tag']
+              promote_tag = ENV['tag']
             else
-              # Do we have this tag?
-              abort "Tag '#{tag}' does not exist!" unless `git tag`.split(/\n/).include?(tag)
-              promote_tag = tag
+              tag = Capistrano::CLI.ui.ask("What tag would you like to promote to #{stage}? [#{most_recent_tag}]")
+              promote_tag = tag == "" ? most_recent_tag : tag
             end
+
+            # Do we have this tag?
+            abort "Tag '#{promote_tag}' does not exist!" unless `git tag`.split(/\n/).include?(promote_tag)
+
             puts "Promoting #{promote_tag} to #{stage}."
             return promote_tag
           end
