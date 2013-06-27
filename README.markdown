@@ -82,6 +82,9 @@ you have to do is `cap production deploy`, and deployflow will ask which tag you
 your most recent automatically), merge that tag over to your master branch, push to origin, and deploy that tag 
 to production.
 
+For non-interactive deployments you can also specify the tag with tag="tag name". For example you can do
+`cap production deploy tag=production_20130626`.
+
 Credits
 -------
 
